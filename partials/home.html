@@ -1,0 +1,87 @@
+<div>
+    <div>
+        <input type="text" disabled="disabled" ng-model="txt" placeholder="0">
+        <table>
+            <tr>
+                <td>
+                    <input type="button" value="1" ng-click="addToCurrentNumber('1')">
+                </td>
+                <td>
+                    <input type="button" value="2" ng-click="addToCurrentNumber('2')">
+                </td>
+                <td>
+                    <input type="button" value="3" ng-click="addToCurrentNumber('3')">
+                </td>
+                <td>
+                    <input type="button" value="+" ng-click="addOperator('+')">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <input type="button" value="4" ng-click="addToCurrentNumber('4')">
+                </td>
+                <td>
+                    <input type="button" value="5" ng-click="addToCurrentNumber('5')">
+                </td>
+                <td>
+                    <input type="button" value="6" ng-click="addToCurrentNumber('6')">
+                </td>
+                <td>
+                    <input type="button" value="-" ng-click="addOperator('-')">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <input type="button" value="7" ng-click="addToCurrentNumber('7')">
+                </td>
+                <td>
+                    <input type="button" value="8" ng-click="addToCurrentNumber('8')">
+                </td>
+                <td>
+                    <input type="button" value="9" ng-click="addToCurrentNumber('9')">
+                </td>
+                <td>
+                    <input type="button" value="*" ng-click="addOperator('*')">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <input type="button" value="0" ng-click="addToCurrentNumber('0')">
+                </td>
+                <td>
+                    <input type="button" value="." ng-click="addToCurrentNumber('.')">
+                </td>
+                <td>
+                    <input type="button" value="C" ng-click="clearPreviousNumber()">
+                </td>
+                <td>
+                    <input type="button" value="/" ng-click="addOperator('/')">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <input type="button" value="x!" ng-click="addToCurrentNumber('x!')">
+                </td>
+                <td colspan="2">
+                    <input type="button" value="1/x" ng-click="addToCurrentNumber('1/x')">
+                </td>
+                <td>
+                    <input type="button" value="A" ng-click="allClear()">
+                </td>
+            </tr>
+            <tr>
+                <td colspan="3" >
+                    <input type="button" value="Enter(=)" ng-click="calculate()">
+                </td>
+                <td>
+                    <input type="button" value="Q" ng-click="quitCalculator()">
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div>
+        C : Clear previous number <br/>
+        A : Clear all input <br/>
+        Q : Quit/Exit an application
+    </div>
+</div>
