@@ -27,3 +27,4 @@ angular.module('calculatorApp', ['ngRoute','appPartials'])
 	});
 
 require('calculatorCtrl');
+require('calculatorService');

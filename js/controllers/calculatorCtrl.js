@@ -8,7 +8,7 @@
 angular = require('angular');
 
 angular.module('calculatorApp')
-    .controller('CalculatorCtrl', function CalculatorCtrl($scope) {
+    .controller('CalculatorCtrl', function CalculatorCtrl($scope, calculatorService) {
         'use strict';
 
         $scope.initialize = function() {
@@ -26,22 +26,7 @@ angular.module('calculatorApp')
                 addNumber();
             }
 
-            var sum = 0;
-
-            while ($scope.operators.length > 0) {
-                var right = $scope.numbers.pop();
-                if (isNaN(right)) {
-                    right = 0;
-                }
-                var left = $scope.numbers.pop();
-                if (isNaN(left)) {
-                    left = 0;
-                }
-
-                var op = $scope.operators.pop();
-                sum += calc(left, right, op);
-
-            }
+            var sum = calculatorService.calculate($scope.numbers, $scope.operators);
 
             $scope.result = sum;
             $scope.numbers = [];
@@ -52,27 +37,30 @@ angular.module('calculatorApp')
 
         $scope.addToCurrentNumber = function(num) {
             if (num == 'x!') {
-                var number = getFactorial(parseInt($scope.currentNumber));
-                console.log("factorial of " + $scope.currentNumber + " : " + number);
-                $scope.currentNumber = '';
+                var number = $scope.currentNumber;
+                $scope.currentNumber = calculatorService.getFactorial(parseInt(number));
                 addNumber();
+                $scope.txt += num.replace("x", "");
+            } else if(num == '1/x') {
+            	var number = $scope.currentNumber;
+            	$scope.currentNumber = 1/number;
+            	addNumber();
+            	var str = $scope.txt;
+            	str = str.substring(0, str.lastIndexOf(number));
+                $scope.txt = str + num.replace("x", number.toString());
+            }else {
+            	$scope.txt += num;
+            	$scope.currentNumber += num;
             }
-            $scope.txt += num;
-            $scope.currentNumber += num;
-        };
-
-        function getFactorial(n) {
-            if (n == 0 || n == 1) {
-                return 1;
-            }
-            return n * getFactorial(n - 1);
         };
 
         function addNumber() {
-            console.log("Adding Number: " + $scope.currentNumber);
-            $scope.numbers.push(parseInt($scope.currentNumber));
+        	var number = $scope.currentNumber;
+        	if(number) {
+        		$scope.numbers.push(parseInt($scope.currentNumber));
             $scope.currentNumber = '';
             $scope.insertOperator = true;
+        	}
         };
 
         $scope.addOperator = function(operator) {
@@ -87,30 +75,20 @@ angular.module('calculatorApp')
                 $scope.operators.push(operator);
             }
             $scope.insertOperator = false;
+        };
 
-        }
+        $scope.clearPreviousNumber = function (char) {
+        	$scope.currentNumber = '';
+        	$scope.txt += char;
+        };
 
-        function calc(lhs, rhs, op) {
-            console.log("Calculation: " + lhs + " " + op + rhs);
-            var result = 0;
-            switch (op) {
-                case '+':
-                    result = lhs + rhs;
-                    break;
-                case '-':
-                    result = lhs - rhs;
-                    break;
-                case '*':
-                    result = lhs * rhs;
-                    break;
-                case '/':
-                    result = lhs / rhs;
-                    break;
+        // $scope.allClear = function() {
+        // 	$scope.initialize();
+        // };
 
-
-            }
-            return result;
-        }
+        $scope.quitCalculator = function() {
+        	window.close();
+        };
 
         $scope.initialize();
     });
