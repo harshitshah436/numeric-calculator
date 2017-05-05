@@ -12,7 +12,8 @@ var gulp = require('gulp'),
     buffer = require('vinyl-buffer'),
     uglify = require('gulp-uglify'),
     gutil = require('gulp-util'),
-    ngAnnotate = require('browserify-ngannotate');
+    ngAnnotate = require('browserify-ngannotate'),
+    babel = require('gulp-babel');
 
 var CacheBuster = require('gulp-cachebust');
 var cachebust = new CacheBuster();
@@ -132,6 +133,9 @@ gulp.task('build-js', ['clean'], function() {
         .pipe(buffer())
         .pipe(cachebust.resources())
         .pipe(sourcemaps.init({loadMaps: true}))
+        .pipe(babel({
+            presets: ['es2015']
+        }))
         .pipe(uglify())
         .on('error', gutil.log)
         .pipe(sourcemaps.write('./'))

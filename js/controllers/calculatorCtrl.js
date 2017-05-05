@@ -1,11 +1,4 @@
-/*global angular */
-
-/**
- * The main controller for the app. The controller:
- * - retrieves and persists the model via the todoStorage service
- * - exposes the model to the template and provides event handlers
- */
-angular = require('angular');
+var angular = require('angular');
 
 angular.module('calculatorApp')
     .controller('CalculatorCtrl', function CalculatorCtrl($scope, calculatorService) {
@@ -26,9 +19,8 @@ angular.module('calculatorApp')
                 addNumber();
             }
 
-            var sum = calculatorService.calculate($scope.numbers, $scope.operators);
+            $scope.result = calculatorService.calculate($scope.numbers, $scope.operators);
 
-            $scope.result = sum;
             $scope.numbers = [];
             $scope.operations = [];
             $scope.txt = $scope.result;
@@ -37,36 +29,33 @@ angular.module('calculatorApp')
 
         $scope.addToCurrentNumber = function(num) {
             if (num == 'x!') {
-                var number = $scope.currentNumber;
-                $scope.currentNumber = calculatorService.getFactorial(parseInt(number));
+                $scope.currentNumber = $scope.currentNumber + "!";
                 addNumber();
                 $scope.txt += num.replace("x", "");
-            } else if(num == '1/x') {
-            	var number = $scope.currentNumber;
-            	$scope.currentNumber = 1/number;
-            	addNumber();
-            	var str = $scope.txt;
-            	str = str.substring(0, str.lastIndexOf(number));
+            } else if (num == '1/x') {
+                var number = $scope.currentNumber;
+                $scope.currentNumber = "1/" + $scope.currentNumber;
+                addNumber();
+                var str = $scope.txt;
+                str = str.substring(0, str.lastIndexOf(number));
                 $scope.txt = str + num.replace("x", number.toString());
-            }else {
-            	$scope.txt += num;
-            	$scope.currentNumber += num;
+            } else {
+                $scope.txt += num;
+                $scope.currentNumber += num;
             }
         };
 
         function addNumber() {
-        	var number = $scope.currentNumber;
-        	if(number) {
-        		$scope.numbers.push(parseInt($scope.currentNumber));
-            $scope.currentNumber = '';
-            $scope.insertOperator = true;
-        	}
+            var number = $scope.currentNumber;
+            if (number) {
+                $scope.numbers.push($scope.currentNumber);
+                $scope.currentNumber = '';
+                $scope.insertOperator = true;
+            }
         };
 
         $scope.addOperator = function(operator) {
             addNumber();
-            console.log("adding operator" + operator);
-            console.log("insert Oparator flag" + $scope.insertOperator);
             $scope.txt += operator;
             if ($scope.insertOperator) {
                 $scope.operators.push(operator);
@@ -77,17 +66,13 @@ angular.module('calculatorApp')
             $scope.insertOperator = false;
         };
 
-        $scope.clearPreviousNumber = function (char) {
-        	$scope.currentNumber = '';
-        	$scope.txt += char;
+        $scope.clearPreviousNumber = function(char) {
+            $scope.currentNumber = '';
+            $scope.txt += char;
         };
 
-        // $scope.allClear = function() {
-        // 	$scope.initialize();
-        // };
-
         $scope.quitCalculator = function() {
-        	window.close();
+            window.close();
         };
 
         $scope.initialize();

@@ -6,7 +6,7 @@
  * @type {angular.Module}
  */
 
-angular = require('angular');
+var angular = require('angular');
 require('angular-route');
 require('../dist/templateCachePartials');
 
