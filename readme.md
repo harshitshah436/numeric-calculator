@@ -40,5 +40,5 @@ To run unit tests, execute the following command in the project directory:
 * Command design pattern [https://en.wikipedia.org/wiki/Command_pattern](https://en.wikipedia.org/wiki/Command_pattern)
 
 ### Application working screens
-![1](https://github.com/harshitshah436/numeric-calculator/blob/master/working_snaps/app1.png)
-![2](https://github.com/harshitshah436/numeric-calculator/blob/master/working_snaps/app2.png)
+![1](https://github.com/harshitshah436/numeric-calculator/blob/master/working_screenshots/app1.png)
+![2](https://github.com/harshitshah436/numeric-calculator/blob/master/working_screenshots/app2.png)
