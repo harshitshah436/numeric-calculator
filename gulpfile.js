@@ -98,7 +98,7 @@ gulp.task('jshint', function() {
 //
 /////////////////////////////////////////////////////////////////////////////////////
 
-gulp.task('test', ['build-js'], function() {
+gulp.task('test', ['build-template-cache', 'build-js'], function() {
     var testFiles = [
         './test/unit/*.js'
     ];

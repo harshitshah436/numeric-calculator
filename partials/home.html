@@ -1,88 +1,49 @@
-<div>
-    <div>
-        <input type="text" disabled="disabled" ng-model="userInput" placeholder="0">
-        <input type="text" disabled="disabled" ng-model="result" ng-show="result!=null">
-        <table>
-            <tr>
-                <td>
-                    <input type="button" value="1" ng-click="addToPreviousNumber('1')">
-                </td>
-                <td>
-                    <input type="button" value="2" ng-click="addToPreviousNumber('2')">
-                </td>
-                <td>
-                    <input type="button" value="3" ng-click="addToPreviousNumber('3')">
-                </td>
-                <td>
-                    <input type="button" value="+" ng-click="addOperator('+')">
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <input type="button" value="4" ng-click="addToPreviousNumber('4')">
-                </td>
-                <td>
-                    <input type="button" value="5" ng-click="addToPreviousNumber('5')">
-                </td>
-                <td>
-                    <input type="button" value="6" ng-click="addToPreviousNumber('6')">
-                </td>
-                <td>
-                    <input type="button" value="-" ng-click="addOperator('-')">
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <input type="button" value="7" ng-click="addToPreviousNumber('7')">
-                </td>
-                <td>
-                    <input type="button" value="8" ng-click="addToPreviousNumber('8')">
-                </td>
-                <td>
-                    <input type="button" value="9" ng-click="addToPreviousNumber('9')">
-                </td>
-                <td>
-                    <input type="button" value="*" ng-click="addOperator('*')">
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <input type="button" value="0" ng-click="addToPreviousNumber('0')">
-                </td>
-                <td>
-                    <input type="button" value="." ng-click="addToPreviousNumber('.')">
-                </td>
-                <td>
-                    <input type="button" value="C" ng-click="clearPreviousNumber('C')">
-                </td>
-                <td>
-                    <input type="button" value="/" ng-click="addOperator('/')">
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <input type="button" value="x!" ng-click="addToPreviousNumber('x!')">
-                </td>
-                <td colspan="2">
-                    <input type="button" value="1/x" ng-click="addToPreviousNumber('1/x')">
-                </td>
-                <td>
-                    <input type="button" value="A" ng-click="initialize()">
-                </td>
-            </tr>
-            <tr>
-                <td colspan="3" >
-                    <input type="button" value="Enter(=)" ng-click="calculate()">
-                </td>
-                <td>
-                    <input type="button" value="Q" ng-click="quitCalculator()">
-                </td>
-            </tr>
-        </table>
+<div class="container text-center">
+    <div class="calcBG col-md-3 col-md-offset-4 text-center">
+        <div class="row">
+            <small>Numeric Calculator</small>
+        </div>
+        <div class="row">
+            <input type="text" class="screen text-right" ng-model="userInput" placeholder="0" readonly>
+            <input type="text" class="screenANS text-right" ng-model="result" ng-show="result!=null" readonly>
+        </div>
+        <div class="row">
+            <button class="btn btn-info" ng-click="addToPreviousNumber('1')">1</button>
+            <button class="btn btn-info" ng-click="addToPreviousNumber('2')">2</button>
+            <button class="btn btn-info" ng-click="addToPreviousNumber('3')">3</button>
+            <button class="btn btn-info" ng-click="addOperator('+')">+</button>
+        </div>
+        <div class="row">
+            <button class="btn btn-info" ng-click="addToPreviousNumber('4')">4</button>
+            <button class="btn btn-info" ng-click="addToPreviousNumber('5')">5</button>
+            <button class="btn btn-info" ng-click="addToPreviousNumber('6')">6</button>
+            <button class="btn btn-info" ng-click="addOperator('-')">-</button>
+        </div>
+        <div class="row">
+            <button class="btn btn-info" ng-click="addToPreviousNumber('7')">7</button>
+            <button class="btn btn-info" ng-click="addToPreviousNumber('8')">8</button>
+            <button class="btn btn-info" ng-click="addToPreviousNumber('9')">9</button>
+            <button class="btn btn-info" ng-click="addOperator('*')">*</button>
+        </div>
+        <div class="row">
+            <button class="btn btn-info" ng-click="addToPreviousNumber('0')">0</button>
+            <button class="btn btn-info" ng-click="addToPreviousNumber('.')">.</button>
+            <button class="btn btn-info" ng-click="addOperator('/')">/</button>
+        </div>
+        <div class="row">
+            <button class="btn btn-info" ng-click="addToPreviousNumber('x!')">x!</button>
+            <button class="btn btn-info" ng-click="addToPreviousNumber('1/x')">1/x</button>
+            <button id="success" class="btn btn-success" ng-click="calculate()">=</button>
+        </div>
+        <div class="row">
+            <button id="warning" class="btn btn-warning" ng-click="clearPreviousNumber('C')">C</button>
+            <button id="danger" class="btn btn-danger" ng-click="initialize()">A</button>
+            <button id="danger" class="btn btn-danger" ng-click="quitCalculator()">Q</button>
+        </div>
     </div>
-    <div>
-        C : Clear previous number <br/>
-        A : Clear all input <br/>
-        Q : Quit/Exit an application
+    <div class="info col-md-3 text-left">
+        C : Clear previous number
+        <br/> A : Clear all input
+        <br/> Q : Quit/Exit an application
     </div>
 </div>
