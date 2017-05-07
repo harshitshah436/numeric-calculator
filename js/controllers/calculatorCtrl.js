@@ -11,7 +11,7 @@
 var angular = require('angular');
 
 angular.module('calculatorApp')
-    .controller('CalculatorCtrl', function CalculatorCtrl($scope, calculatorService) {
+    .controller('CalculatorCtrl', function CalculatorCtrl($scope, calculatorService, $window) {
         'use strict';
 
         /**
@@ -25,8 +25,7 @@ angular.module('calculatorApp')
             $scope.numbers = [];
             $scope.operators = [];
             $scope.insertOperator = true;
-            $scope.insertNumber = false;
-            $scope.currentNumber = '';
+            $scope.previousNumber = '';
             $scope.result = null;
         };
 
@@ -39,7 +38,7 @@ angular.module('calculatorApp')
          */
         $scope.calculate = function() {
 
-            if ($scope.currentNumber) {
+            if ($scope.previousNumber) {
                 addNumber();
             }
 
@@ -52,7 +51,7 @@ angular.module('calculatorApp')
             // reset arrays and store resulted sum, user input.
             $scope.numbers = [];
             $scope.operations = [];
-            $scope.currentNumber = $scope.result;
+            $scope.previousNumber = $scope.result;
             if (!($scope.userInput.lastIndexOf(")") == $scope.userInput.length - 1)) {
                 $scope.userInput = "(" + $scope.userInput + ")";
             }
@@ -63,42 +62,27 @@ angular.module('calculatorApp')
          * the user. It also handles when a number greater than 10 is entered 
          * because each time user presses a key this function will be called.
          *
-         * @function addToCurrentNumber
+         * @function addToPreviousNumber
          * @memberOf CalculatorCtrl
          * @param {string} num pressed key by a user
          */
-        $scope.addToCurrentNumber = function(num) {
+        $scope.addToPreviousNumber = function(num) {
             if (num == "x!") { // change 'x!' to '5!' if 5 & x! entered
-                $scope.currentNumber = $scope.currentNumber + "!";
+                $scope.previousNumber = $scope.previousNumber + "!";
                 addNumber();
                 $scope.userInput += num.replace("x", "");
             } else if (num == "1/x") { // change '1/x' to '1/2' if 2 & 1/x entered
-                var number = $scope.currentNumber;
-                $scope.currentNumber = "1/" + $scope.currentNumber;
+                var number = $scope.previousNumber;
+                $scope.previousNumber = "1/" + $scope.previousNumber;
                 addNumber();
                 var str = $scope.userInput;
                 str = str.substring(0, str.lastIndexOf(number));
                 $scope.userInput = str + num.replace("x", number.toString());
             } else { // handles greater than 0-9 numbers
                 $scope.userInput += num;
-                $scope.currentNumber += num;
+                $scope.previousNumber += num;
             }
         };
-
-        /**
-         * Add current number to numbers array.
-         * 
-         * @function addNumber
-         * @memberOf CalculatorCtrl
-         */
-        function addNumber() {
-            var number = $scope.currentNumber;
-            if (number) {
-                $scope.numbers.push(number);
-                $scope.currentNumber = '';
-                $scope.insertOperator = true;
-            }
-        }
 
         /**
          * Add entered operator to operators array. It only adds a first 
@@ -128,7 +112,7 @@ angular.module('calculatorApp')
          * @param  {string} char "C" pressed
          */
         $scope.clearPreviousNumber = function(char) {
-            $scope.currentNumber = '';
+            $scope.previousNumber = '';
             $scope.userInput += char;
         };
 
@@ -139,8 +123,23 @@ angular.module('calculatorApp')
          * @memberOf CalculatorCtrl
          */
         $scope.quitCalculator = function() {
-            window.close();
+            $window.close();
         };
+
+        /**
+         * Add current number to numbers array.
+         * 
+         * @function addNumber
+         * @memberOf CalculatorCtrl
+         */
+        function addNumber() {
+            var number = $scope.previousNumber;
+            if (number) {
+                $scope.numbers.push(number);
+                $scope.previousNumber = '';
+                $scope.insertOperator = true;
+            }
+        }
 
         $scope.initialize();
     });

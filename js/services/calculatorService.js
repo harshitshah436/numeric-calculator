@@ -152,6 +152,10 @@ angular.module('calculatorApp')
 
             var calculator = new Calculator();
 
+            if (numbers.length == 0 && operators.length == 0) {
+                return calculator._result;
+            }
+
             // Handle first negative number and remove the operator accordingly
             if (operators.length == numbers.length) {
                 var op = operators.shift();
@@ -190,11 +194,11 @@ angular.module('calculatorApp')
         function _getNumber(numbers) {
             var number = numbers.shift();
             if (isNaN(number)) {
-                if (number.includes('!')) {
+                if (number.indexOf('!') !== -1) {
                     var num = parseInt(number.replace('!', ''));
                     var command = new FactorialOperatorCommand(num);
                     number = command.execute();
-                } else if (number.includes('/')) {
+                } else if (number.indexOf('/') !== -1) {
                     var num = parseFloat(number.replace('1/', ''));
                     var command = new MulInverseOperatorCommand(num);
                     number = command.execute();
